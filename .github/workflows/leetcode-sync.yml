@@ -2,14 +2,12 @@ name: Sync Accepted LeetCode Submissions
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"  # hourly; change if you want less frequent
-
+    - cron: "0 */6 * * *"  # Every 6 hours instead of hourly
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Sync from LeetCode
         uses: joshcai/leetcode-sync@v1.7
         with:
@@ -19,3 +17,4 @@ jobs:
           destination-folder: 'problems'
           commit-header: "[LeetCode Sync]"
           verbose: true
+          filter-duplicate-secs: 86400  # 24 hours
